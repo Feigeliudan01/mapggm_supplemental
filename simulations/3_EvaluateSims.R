@@ -36,7 +36,7 @@ if(useIdeal){
   keep <- setup$omegaTrue %in% storageList
   setup <- setup[keep,]
 } else {
-  setup <- read.csv(sprintf('results_%s/summary/esimationSummary.csv',batch), as.is=TRUE)
+  setup <- read.csv(sprintf('results_%s/summary/estimationSummary.csv',batch), as.is=TRUE)
   setup <- setup[setup$estimate,]
 }
 setup <- setup[setup$corr.in %in% r.in.use,]

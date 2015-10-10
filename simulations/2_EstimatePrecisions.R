@@ -140,7 +140,7 @@ if(setup$estimate | setup$index==1 ){
   files.there <- system(sprintf('ls results_%s/summary', batch), intern=TRUE)
   first.file <- (length(files.there)==0)
   write.table(setup, 
-            sprintf('results_%s/summary/esimationSummary.csv', batch), 
+            sprintf('results_%s/summary/estimationSummary.csv', batch), 
             append=!first.file, col.names=first.file, sep=',', row.names=FALSE)
   save.image(sprintf('results_%s/Rdata/outdata_%s.Rdata', batch, setup$index))
   sink()

@@ -10,9 +10,10 @@
 # Generated data and networks are sent to the 'storage' subdirectory in the
 # batch-specific results folder.
 
-code.dir <- '~/Dropbox/phd/kolaczyk/mapggm/github/mapggm_supplemental/simulations/'  # YOUR FOLDER HERE
-testing <- TRUE # set to TRUE if you're not running this from the command line
+code.dir <- '/restricted/projectnb/johnsonlab/yuqingz/gaussian_network/DC_SBM_yz/mapggm_supplemental/DCSBM/'  # YOUR FOLDER HERE
+testing <- FALSE # set to TRUE if you're not running this from the command line
 source('src/simFunctions.R')
+source('src/simFunctions_dcsbm.R')
 
 if(testing){
   args <- c('demo', 1)
@@ -41,18 +42,19 @@ for(rep in unique(setup$each)){
     line <- which(setup$each==rep & setup$ab==ab &
                     setup$corr.in==rin.start & setup$corr.out==rout.start)
     if(length(line)==1){
-      simcov.start <- generateCov(n.paired=setup$n.paired[line], 
-                                  n.unpaired=setup$n.unpaired[line], 
-                                  corr.in=setup$corr.in[line], 
-                                  corr.out=setup$corr.out[line], 
-                                  corr.out.off=setup$corr.out.off[line], 
-                                  type=setup$type[line], 
-                                  n.clust=setup$n.clust[line], 
-                                  er.prob=setup$er.prob[line], 
-                                  sb.probin=setup$sb.probin[line],
-                                  sb.probout=setup$sb.probout[line],
-                                  nn.s=setup$s.nn[line],
-                                  min.diag.add=1, viz=FALSE)
+      simcov.start <- generateCov_new(n.paired=setup$n.paired[line], 
+                                      n.unpaired=setup$n.unpaired[line], 
+                                      corr.in=setup$corr.in[line], 
+                                      corr.out=setup$corr.out[line], 
+                                      corr.out.off=setup$corr.out.off[line], 
+                                      type=setup$type[line], 
+                                      n.clust=setup$n.clust[line], 
+                                      er.prob=setup$er.prob[line], 
+                                      sb.probin=setup$sb.probin[line],
+                                      sb.probout=setup$sb.probout[line],
+                                      nn.s=setup$s.nn[line],
+                                      dcsbm.theta=setup$dcsbm.theta[line],
+                                      min.diag.add=1, viz=FALSE)
     } else { stop(sprintf('error: rep %s ab %s', rep, ab)) }
     
 #     # Allow perturbed control data -- only use if you're specifically testing!

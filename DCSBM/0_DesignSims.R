@@ -24,10 +24,10 @@
 # min.t = minimum step size for optimization in estimation of Omega
 # max.gap = maximum primal-dual gap optimzation in estimation of Omega
 
-code.dir <- '~/Dropbox/phd/kolaczyk/mapggm/github/mapggm_supplemental/simulations/'  # YOUR FOLDER HERE
-batch <- 'demo'
-n.replicates <- 2
-n.perclust <- 10
+code.dir <- '/restricted/projectnb/johnsonlab/yuqingz/gaussian_network/DC_SBM_yz/mapggm_supplemental/DCSBM/'  # YOUR FOLDER HERE
+batch <- 'sim_DCSBM'
+n.replicates <- 50 #2
+n.perclust <- 20 #10
 
 setwd(code.dir)
 build <- expand.grid(index=1,
@@ -42,12 +42,13 @@ build <- expand.grid(index=1,
                      sb.probin=.4,
                      sb.probout=.2,
                      s.nn=4,
+                     dcsbm.theta=0.6,  # theta for degree-corrected SBM
                      corr.in=c(.6,.8),
                      corr.out=c(.2,.4,.6),
                      corr.out.off=NA,
-                     snr=c(.25),
-                     type=c('sb'),
-                     n.lambdas=10,
+                     snr=0.2,  #c(.25),
+                     type=c('dcsbm'),  #c('sb'),
+                     n.lambdas=10,  
                      max.iter=200,
                      min.t=2e-30,
                      max.gap=0.01)

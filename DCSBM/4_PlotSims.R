@@ -4,14 +4,16 @@
 # and the name of the Rdata file that you want to use.
 
 # Run settings
-code.dir <- '~/Dropbox/phd/kolaczyk/mapggm/github/mapggm_supplemental/simulations/'  # YOUR FOLDER HERE
-batch <- 'demo'
-tag <- "SIM_snr0.25_perturbNODE_testNODE_rankAND_covSAME_1444434753"
-rdfile <- 'rd_sb_n50_npair20_sbpo20_est.Rdata'
+code.dir <- '/restricted/projectnb/johnsonlab/yuqingz/gaussian_network/DC_SBM_yz/mapggm_supplemental/DCSBM/'  # YOUR FOLDER HERE
+batch <- 'sim_DCSBM'
+tag <- "SIM_snr0.2_perturbNODE_testNODE_rankAND_covSAME_1510028066"
+rdfile <- 'rd_dcsbm_n50_npair20_sbpo20_est.Rdata'
 
 # Source calls
 setwd(code.dir)
 library(ggplot2)
+library(data.table)
+library(xtable)
 source('src/performance.R')
 
 # Getting ready
@@ -40,6 +42,17 @@ prob.tables1[6,] <- sapply(1:length(res.list), function(i){
                         topNProb(res.list[[i]][6], truth.list[[i]][6], method.labels[6], n=n.perturb*2)})
 prob.tab.all1<- data.frame(auc.df$r.in, auc.df$r.out, t(prob.tables1))
 names(prob.tab.all1) <- c('rin','rout', method.labels)
+
+# Table for AUC
+auc.tables1 <- sapply(1:length(res.list), function(i){
+  aucList(res.list[[i]], truth.list[[i]], method.labels, r.in=auc.df$r.in, r.out=auc.df$r.out)})
+auc.tables1[2,] <- sapply(1:length(res.list), function(i){
+  aucList(res.list[[i]][2], truth.list[[i]][2], method.labels[2], r.in=auc.df$r.in, r.out=auc.df$r.out)})
+auc.tables1[6,] <- sapply(1:length(res.list), function(i){
+  aucList(res.list[[i]][6], truth.list[[i]][6], method.labels[6], r.in=auc.df$r.in, r.out=auc.df$r.out)})
+auc.tab.all1<- data.frame(auc.df$r.in, auc.df$r.out, t(auc.tables1))
+names(auc.tab.all1) <- c('rin','rout', method.labels)
+
 
 first <- TRUE
 for(i in 1:nrow(auc.df)){
@@ -118,8 +131,8 @@ for(inc in 1:length(inc.labels)){
   rm(plt)
   
   c.rep <- paste(rep('c', length(l.inc)), collapse='')
-  auc.tab <- auc.df[,c(2:3,(l.inc+3))]
-  names(auc.tab) <- c('r.in','r.out', method.labels[l.inc])
+  auc.tab <- auc.tab.all1[,c(1:2,(l.inc+2))]
+  #names(auc.tab) <- c('r.in','r.out', method.labels[l.inc])
   print(xtable(auc.tab, align=sprintf('ccc|%s', c.rep), 
                digits=c(rep(1,3), rep(2,length(l.inc)))),
         file=sprintf('%s/aucs_%s_%s_%s.tex', post_dir, inc.labels[inc], fac, 
@@ -132,6 +145,4 @@ for(inc in 1:length(inc.labels)){
         file=sprintf('%s/prob1_%s_%s_%s.tex', post_dir, inc.labels[inc], fac, 
                      ideal, table.placement='H', include.rownames=FALSE, 
                      include.colnames=TRUE ))
-  
-  
 }

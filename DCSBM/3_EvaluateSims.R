@@ -5,8 +5,8 @@
 # subest of runs, and it won't use sink() to generate a log file. 
 
 # Run settings
-code.dir <- '~/Dropbox/phd/kolaczyk/mapggm/github/mapggm_supplemental/simulations/'  # YOUR FOLDER HERE
-batch <- 'demo'
+code.dir <- '/restricted/projectnb/johnsonlab/yuqingz/gaussian_network/DC_SBM_yz/mapggm_supplemental/DCSBM/'  # YOUR FOLDER HERE
+batch <- 'sim_DCSBM'
 testing <- FALSE
 useIdeal <- FALSE
 perturb <- 'node' # either 'node' or 'single'
@@ -14,7 +14,7 @@ test <- 'node' # either 'node' or 'single'
 r.in.use <- c(.8, .6)#seq(-.8,.8, .2)#c(.8,.6)#c(-.8,.8)##
 r.out.use <- c(.2, .4, .6)#c(-.4,0,.4)#
 n.perturb <- 1 #2
-snr <- 0.25 # c(.3,.2)
+snr <- 0.2 #0.25 # c(.3,.2)
 
 edgeDrop <- FALSE # deprecated option, do not change
 condenseOR <- FALSE # deprecated option, do not change
@@ -25,10 +25,9 @@ setwd(code.dir)
 source('src/simFunctions.R')
 source('src/performance.R')
 library(mapggm)
+library(Hotelling)
 
-setwd('~/Dropbox/phd/kolaczyk/mapggm/github/mapggm_supplemental/simulations')
 dir.create(sprintf('results_%s/post', batch), showWarnings=FALSE)
-
 
 if(useIdeal){
   setup <- read.csv(sprintf('results_%s/setup/setup.csv', batch), as.is=TRUE) 

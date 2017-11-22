@@ -11,8 +11,8 @@
 # you run this script, set first.run=TRUE to download the package.  After that,
 # set to FALSE so that the installed package is simply loaded.
 
-code.dir <- '~/Dropbox/phd/kolaczyk/mapggm/github/mapggm_supplemental/simulations/' # YOUR FOLDER HERE
-testing <- TRUE
+code.dir <- '/restricted/projectnb/johnsonlab/yuqingz/gaussian_network/DC_SBM_yz/mapggm_supplemental/DCSBM/' # YOUR FOLDER HERE
+testing <- FALSE
 first.run <- FALSE
 
 # Packages & source
